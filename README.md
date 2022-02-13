@@ -7,7 +7,7 @@ Dashboard to track your Rigs
 * Create account and manage an account
 * Manage the account
 * Add wallet and get wallet history
-    -
+
 
 * Use HiveOS API to get all data
     - Get GPUs data :
