@@ -1,2 +1,52 @@
+version: "2"
 
+services:
+
+  apiplatform: #name of the second service
+    build: api-platform # specify the directory of the Dockerfile
+    restart: always
+#    environment:
+#      - VIRTUAL_HOST=
+#      - VIRTUAL_PORT=5000
+#      - LETSENCRYPT_HOST=
+#      - LETSENCRYPT_EMAIL=
+
+    networks:
+      - backend
+      - frontend
+    links:
+      - database
+    ports:
+      - 9000:9000
+      
+      
+  database: # name of the third service
+    image: mongo:3.6.2  # specify image to build container from
+    restart: always
+    ports:
+      - "27017:27017" # specify port forewarding
+    networks:
+      - backend
+    volumes:
+      - ./mongodata:/db/data
+
+  client:
+    build: client
+    restart: always
+#    environment:
+#      - VIRTUAL_HOST=
+#      - VIRTUAL_PORT=3000
+#      - LETSENCRYPT_HOST=platform.withu.studio
+#      - LETSENCRYPT_EMAIL=support@withu.studio
+    ports:
+      - 3000:3000
+    networks:
+      - frontend
+
+volumes:
+  db-data:
+
+networks:
+  backend:
+  frontend:
 
