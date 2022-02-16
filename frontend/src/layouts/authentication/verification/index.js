@@ -44,8 +44,7 @@ function Verification() {
   const [agreement, setAgremment] = useState(true);
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setconfirmPassword] = useState("");
+  const [code, setCode] = useState("");
   const [buttonText, setButtonText] = useState("Verify");
   const [error, setError] = useState(undefined);
 
@@ -58,24 +57,21 @@ function Verification() {
     if (email === "") {
       return setError("You must enter your email.");
     }
-    if (password === "") {
+    if (code === "") {
       return setError("You must enter a password.");
-    }
-    if (confirmPassword === "") {
-      return setError("You must enter a confirmation password.");
     }
     try {
       setButtonText("Verify");
-      let response = await AuthApi.Register({
+      let response = await AuthApi.Validation({
         email: email,
-        password,
-        confirmPassword,
+        code,
+
       });
       if (response.data && response.data.success === false) {
         setButtonText("Verify");
         return setError(response.data.msg);
       }
-      //return history.push("/authentication/verification");
+      return history.push("/authentication/sign-in");
     } catch (err) {
       console.log(err);
       setButtonText("Verify");
@@ -114,23 +110,14 @@ function Verification() {
             <SuiBox mb={2}>
               <SuiInput
                 onChange={(event) => {
-                  setPassword(event.target.value);
+                  setCode(event.target.value);
                   setError(undefined);
                 }}
-                type="password"
-                placeholder="Password"
+                type="text"
+                placeholder="Verification code"
               />
             </SuiBox>
             <SuiBox mb={2}>
-              <SuiInput
-                onChange={(event) => {
-                  setconfirmPassword(event.target.value);
-                  setError(undefined);
-                }}
-                type="Password"
-                placeholder="Confirmation password"
-              />
-            </SuiBox>
             <SuiBox display="flex" alignItems="center">
               <Checkbox checked={agreement} onChange={handleSetAgremment} />
               <SuiTypography
@@ -158,14 +145,14 @@ function Verification() {
                 {error}
               </h6>
             </SuiBox>
-            <SuiBox mt={4} mb={1}>
-              <SuiButton onClick={register} variant="gradient" buttonColor="dark" fullWidth>
-                {buttonText}
-              </SuiButton>
+              <SuiBox mt={4} mb={1}>
+                <SuiButton onClick={register} variant="gradient" buttonColor="dark" fullWidth>
+                  {buttonText}
+                </SuiButton>
+              </SuiBox>
+
+
             </SuiBox>
-
-
-            
           </SuiBox>
         </SuiBox>
       </Card>

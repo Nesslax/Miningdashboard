@@ -138,6 +138,15 @@ const routes = [
     noCollapse: true,
   },
   {
+    type: "none",
+    name: "Verification",
+    key: "verification",
+    route: "/authentication/verification",
+    icon: <SpaceShip size="12px" />,
+    component: Verification,
+    noCollapse: true,
+    },
+  {
     type: "collapse",
     name: "Logout",
     key: "sign-out",
