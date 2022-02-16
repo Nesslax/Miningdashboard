@@ -1,5 +1,5 @@
 # Create image based on the official latest Node image from the dockerhub
-FROM node:15
+FROM node:13
 
 # Create a directory where our app will be placed
 RUN mkdir -p /usr/src/app
@@ -9,8 +9,6 @@ WORKDIR /usr/src/app
 
 # Copy dependency definitions
 COPY . /usr/src/app
-
-RUN npm install --save --legacy-peer-deps semantic-ui-react
 
 # Install dependecies
 RUN npm install

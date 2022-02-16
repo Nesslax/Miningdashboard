@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors');
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const PORT = 5000;
@@ -8,7 +9,6 @@ const authRoutes = require("./routes/users");
 
 mongoose
   .connect(process.env.MONGO_URI, {
-    dbName: "TheNodeAuth",
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -21,6 +21,9 @@ mongoose
 
 const app = express();
 
+
+app.use(cors())
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -30,6 +33,7 @@ app.get("/ping", (req, res) => {
     message: "Server is healthy",
   });
 });
+
 
 app.use("/users", authRoutes);
 
