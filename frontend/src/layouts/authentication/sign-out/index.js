@@ -23,6 +23,7 @@ function SignOut() {
   let { user } = useAuth();
 
   const handleLogout = async () => {
+    console.log(user);
     await AuthApi.Logout(user);
     await setUser(null);
     localStorage.removeItem("user");
