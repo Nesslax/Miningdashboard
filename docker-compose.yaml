@@ -32,6 +32,7 @@ services:
 
 
   frontend:
+    container_name: frontend
     build: frontend
     restart: always
 #    volumes:
