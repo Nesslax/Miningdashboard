@@ -2,8 +2,8 @@ version: "2"
 
 services:
 
-  apiplatform: #name of the second service
-    build: api-platform # specify the directory of the Dockerfile
+  backend: #name of the second service
+    build: backend # specify the directory of the Dockerfile
     restart: always
 #    environment:
 #      - VIRTUAL_HOST=
@@ -17,11 +17,11 @@ services:
     links:
       - database
     ports:
-      - 9000:9000
-      
-      
+      - 5000:5000
+
+
   database: # name of the third service
-    image: mongo:3.6.2  # specify image to build container from
+    image: mongo:5.0  # specify image to build container from
     restart: always
     ports:
       - "27017:27017" # specify port forewarding
@@ -30,9 +30,13 @@ services:
     volumes:
       - ./mongodata:/db/data
 
-  client:
-    build: client
+
+  frontend:
+    build: frontend
     restart: always
+#    volumes:
+#      - '.:/app'
+#      - 'frontend/app/node_modules'
 #    environment:
 #      - VIRTUAL_HOST=
 #      - VIRTUAL_PORT=3000
@@ -49,4 +53,3 @@ volumes:
 networks:
   backend:
   frontend:
-
